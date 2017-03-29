@@ -1,26 +1,22 @@
-import numpy as np
-import pylab as P
-import matplotlib.mlab as mlab
-
 from plot_gauss_parameters import *
 
-def plot_data_and_gaussians(data_file_name, mu1, mu2, covar1, covar2):
-    
+
+def plot_data_and_gaussians(data_file_name, means, covars):
     # load data
-    data = np.genfromtxt(data_file_name, delimiter=' ')
+    # data = np.genfromtxt(data_file_name, delimiter=' ')
+    data = np.genfromtxt(data_file_name)
+    colors = ['b', 'g', 'r', 'c', 'm', 'y', 'k']
+    # markers = ['o', 'p', '+', '.', '*']
 
     # plot data as a scatter plot
-    P.scatter(data[:,0], data[:,1], s=20, c='k', marker='x', alpha=.65, linewidths=2)
+    P.scatter(data[:, 0], data[:, 1], s=5, c='k', marker='x', alpha=.65, linewidths=1)
 
-    # plot gaussian #1
-    plot_gauss_parameters(mu1, covar1, 'r')
+    for mean, covar, color in zip(means, covars, colors):
+        plot_gauss_parameters(mean, covar, color)
 
-    # plot gaussian #2
-    plot_gauss_parameters(mu2, covar2, 'b')
+        # P.show()
+        # return current_plot
 
-    P.show()
-
-data = np.genfromtxt("dataset1.txt", delimiter=' ')
-plot_data_and_gaussians("dataset1.txt", np.zeros((2,)), np.mean(data,0), np.eye(2), np.eye(2))	
-
- 
+# data_file_name = "/Users/stan/PycharmProjects/CS274a/HW6/data/dataset1.txt"
+# data = np.genfromtxt(data_file_name, delimiter=' ')
+# plot_data_and_gaussians(data_file_name, np.zeros((2,)), np.mean(data, 0), np.eye(2), np.eye(2))
